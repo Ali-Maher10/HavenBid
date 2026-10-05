@@ -16,56 +16,36 @@ const HouseDetail = () => {
   if (!data) return <div>House id not found</div>;
 
   return (
-    <div className="row">
-      <div className="col-6">
-        <div className="row">
-          <img
-            className="img-fluid"
-            src={data.photo ? data.photo : defaultPhoto}
-            alt="House pic"
-          />
+    <div className="row g-5">
+      <div className="col-lg-6">
+        <img
+          className="detail-photo"
+          src={data.photo ? data.photo : defaultPhoto}
+          alt={`Photo of ${data.address}`}
+        />
+        <div className="detail-actions">
+          <Link className="btn btn-outline-sea" to={`/house/edit/${data.id}`}>
+            Edit house
+          </Link>
+          <button
+            className="btn btn-danger"
+            onClick={() => {
+              if (window.confirm("Delete this house? This can't be undone."))
+                deleteHouseMutation.mutate(data);
+            }}
+          >
+            Delete house
+          </button>
         </div>
-        <div className="row mt-3">
-          <div className="col-2">
-            <Link
-              className="btn btn-primary w-100"
-              to={`/house/edit/${data.id}`}
-            >
-              Edit
-            </Link>
-          </div>
-          <div className="col-2">
-            <button
-              className="btn btn-danger w-100"
-              onClick={() => {
-                if (window.confirm("Are you sure?"))
-                  deleteHouseMutation.mutate(data);
-              }}
-            >
-              Delete
-            </button>
-             </div>
-    </div>
       </div>
-      <div className="col-6">
-        <div className="row mt-2">
-          <h5 className="col-12">{data.country}</h5>
-        </div>
-        <div className="row">
-          <h3 className="col-12">{data.address}</h3>
-        </div>
-        <div className="row">
-          <h2 className="themeFontColor col-12">
-            {currencyFormatter.format(data.price)}
-          </h2>
-        </div>
-        <div className="row">
-          <p className="col-12 mt-3">{data.description}</p>
-        </div>
+      <div className="col-lg-6">
+        <p className="detail-country">{data.country}</p>
+        <h1 className="detail-address">{data.address}</h1>
+        <p className="detail-price">{currencyFormatter.format(data.price)}</p>
+        <p className="detail-description">{data.description}</p>
         <Bids house={data} />
       </div>
     </div>
-   
   );
 };
 

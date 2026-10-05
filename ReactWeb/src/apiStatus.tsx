@@ -9,9 +9,8 @@ const ApiStatus=({status}:Args)=>{
                 <section className="api-status api-status--error" role="alert">
                     <div className="api-status__icon" aria-hidden="true">!</div>
                     <div className="api-status__copy">
-                        <p className="api-status__eyebrow">Connection interrupted</p>
-                        <h2>We couldn’t load the homes</h2>
-                        <p>There was a problem reaching the data service. Please try again shortly.</p>
+                        <h2>Couldn’t load the data</h2>
+                        <p>The server didn’t respond. Check that the API is running, then reload the page.</p>
                     </div>
                 </section>
             );
@@ -22,9 +21,8 @@ const ApiStatus=({status}:Args)=>{
                         <span />
                     </div>
                     <div className="api-status__copy">
-                        <p className="api-status__eyebrow">Just a moment</p>
-                        <h2>Finding homes for you</h2>
-                        <p>We’re bringing the latest listings into view.</p>
+                        <h2>Loading</h2>
+                        <p>Fetching the latest data.</p>
                     </div>
                     <div className="api-status__track" aria-hidden="true"><span /></div>
                 </section>
