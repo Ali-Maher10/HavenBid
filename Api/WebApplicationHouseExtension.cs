@@ -33,12 +33,12 @@ app.MapPut("/houses", async(IHouseRepository repo,[FromBody] HouseDetailDto dto)
 }).ProducesProblem(404).Produces<HouseDetailDto>(StatusCodes.Status200OK)
   .ProducesValidationProblem();
 
-app.MapDelete("/houses", async(IHouseRepository repo,[FromBody] HouseDetailDto dto) => {
-    if (await repo.Get(dto.Id) == null)
-        return Results.Problem("House {dto.id} not found.", statusCode: 404);
-    await repo.Delete(dto.Id);
+app.MapDelete("/houses/{houseId:int}", async(IHouseRepository repo, int houseId) => {
+    if (await repo.Get(houseId) == null)
+        return Results.Problem($"House {houseId} not found.", statusCode: 404);
+    await repo.Delete(houseId);
   return Results.Ok();
-}).ProducesProblem(404).Produces<HouseDetailDto>(StatusCodes.Status200OK);
+}).ProducesProblem(404).Produces(StatusCodes.Status200OK);
 
 
     }

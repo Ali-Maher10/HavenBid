@@ -2,45 +2,56 @@ import useFetchHouses from "../hooks/HouseHooks";
 import { House } from "../types/House";
 import { currencyFormatter } from "../config";
 import ApiStatus from "../apiStatus";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import defaultPhoto from "./defaultPhoto";
 
 const HouseList=() =>{
-  const nav =useNavigate();
     const {data,status,isSuccess} = useFetchHouses();
     if(!isSuccess)
         return <ApiStatus status={status} />;
     return (
-        <div>
-      <div className="row mb-2">
-        <h5 className="themeFontColor text-center">
-          Houses currently on the market
-        </h5>
-      </div>
-      <table className="table table-hover">
-        <thead>
-          <tr>
-            <th>Address</th>
-            <th>Country</th>
-            <th>Asking Price</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data && data.map((h:House) => (
-              <tr key={h.id} onClick={()=>nav(`/house/${h.id}`)}>
-                <td>{h.address}</td>
-                <td>{h.country}</td>
-                <td>{currencyFormatter.format(h.price)}</td>
-              </tr>
+      <div>
+        <div className="page-head">
+          <div>
+            <h1>Houses on the market</h1>
+            <p>
+              {data?.length ?? 0} {data?.length === 1 ? "home" : "homes"} for sale
+            </p>
+          </div>
+          <Link className="btn btn-primary" to="/house/add">
+            Add a house
+          </Link>
+        </div>
+        {data && data.length > 0 ? (
+          <div className="listing-grid">
+            {data.map((h: House) => (
+              <Link key={h.id} className="listing" to={`/house/${h.id}`}>
+                <img
+                  className="listing__photo"
+                  src={h.photo ? h.photo : defaultPhoto}
+                  alt=""
+                  loading="lazy"
+                />
+                <div className="listing__body">
+                  <h2 className="listing__address">{h.address}</h2>
+                  <span className="listing__country">{h.country}</span>
+                  <span className="listing__price">
+                    {currencyFormatter.format(h.price)}
+                  </span>
+                </div>
+              </Link>
             ))}
-        </tbody>
-      </table>
-      <Link className="btn btn-primary" to="/house/add">
-        Add
-      </Link>
-    </div>
+          </div>
+        ) : (
+          <div className="empty-state">
+            <h2 className="h4">No houses listed yet</h2>
+            <p>Add the first house to start receiving bids.</p>
+            <Link className="btn btn-primary" to="/house/add">
+              Add a house
+            </Link>
+          </div>
+        )}
+      </div>
     );
 };
 export default HouseList;
-
-
- 

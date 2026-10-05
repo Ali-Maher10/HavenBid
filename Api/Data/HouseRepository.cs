@@ -31,7 +31,7 @@ public class HouseRepository: IHouseRepository
      }
     public async Task<List<HouseDto>> GetAll()
     {
-        return await _dbContext.Houses.Select(h => new HouseDto(h.Id, h.Address, h.Country, h.Price)).ToListAsync();
+        return await _dbContext.Houses.Select(h => new HouseDto(h.Id, h.Address, h.Country, h.Price, h.Photo)).ToListAsync();
     }
     public async Task<HouseDetailDto?> Get(int id)
     {

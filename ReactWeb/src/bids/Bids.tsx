@@ -19,7 +19,7 @@ const Bids = ({ house }: Args) => {
     bidder: "",
     amount: 0,
   };
-  const [bid, setBid] = useState<Bid>(emptyBid); 
+  const [bid, setBid] = useState<Bid>(emptyBid);
 
   if (!isSuccess) return <ApiStatus status={status} />;
 
@@ -29,61 +29,60 @@ const Bids = ({ house }: Args) => {
   };
 
   return (
-    <>
-      <div className="row mt-4">
-        <div className="col-12">
-          <table className="table table-sm">
-            <thead>
-              <tr>
-                <th>Bidder</th>
-                <th>Amount</th>
+    <section className="bids" aria-labelledby="bids-heading">
+      <h2 id="bids-heading">Bids</h2>
+      {data && data.length > 0 ? (
+        <table className="table table-sm">
+          <thead>
+            <tr>
+              <th>Bidder</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((b) => (
+              <tr key={b.id}>
+                <td>{b.bidder}</td>
+                <td>{currencyFormatter.format(b.amount)}</td>
               </tr>
-            </thead>
-            <tbody>
-              {data &&
-                data.map((b) => (
-                  <tr key={b.id}>
-                    <td>{b.bidder}</td>
-                    <td>{currencyFormatter.format(b.amount)}</td>
-                  </tr>
-                ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div className="row">
-        <div className="col-4">
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <p className="bids__empty">No bids yet. Place the first one below.</p>
+      )}
+      <div className="bids__form">
+        <div>
+          <label className="form-label" htmlFor="bidder">
+            Your name
+          </label>
           <input
             id="bidder"
-            className="h-100"
+            className="form-control"
             type="text"
             value={bid.bidder}
             onChange={(e) => setBid({ ...bid, bidder: e.target.value })}
-            placeholder="Bidder"
-          ></input>
+          />
         </div>
-        <div className="col-4">
+        <div>
+          <label className="form-label" htmlFor="amount">
+            Your bid
+          </label>
           <input
             id="amount"
-            className="h-100"
+            className="form-control"
             type="number"
             value={bid.amount}
             onChange={(e) =>
               setBid({ ...bid, amount: parseInt(e.target.value) })
             }
-            placeholder="Amount"
-          ></input>
+          />
         </div>
-        <div className="col-2">
-          <button
-            className="btn btn-primary"
-            onClick={() => onBidSubmitClick()}
-          >
-            Add
-          </button>
-        </div>
+        <button className="btn btn-primary" onClick={() => onBidSubmitClick()}>
+          Place bid
+        </button>
       </div>
-    </>
+    </section>
   );
 };
 

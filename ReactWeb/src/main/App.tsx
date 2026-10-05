@@ -11,15 +11,15 @@ function App() {
   
   return (
     <BrowserRouter>
-      <div className="container">
-        <Header subtitle="Providing houses all over the world"/>
+      <Header subtitle="Providing houses all over the world"/>
+      <main className="container page">
         <Routes>
           <Route path="/" element={<HouseList/>} ></Route>
           <Route path="/house/:id" element={<HouseDetail/>} ></Route>
           <Route path="/house/add" element={<HouseAdd/>} ></Route>
           <Route path="/house/edit/:id" element={<HouseEdit/>} ></Route>
         </Routes>
-      </div>
+      </main>
     </BrowserRouter>
       
   );

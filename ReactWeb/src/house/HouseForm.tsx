@@ -39,72 +39,74 @@ const onFileSelected = async (
   }
 };
       return (
-    <form className="mt-2">
-      <div className="form-group">
-        <label htmlFor="address">Address</label>
+    <form className="house-form">
+      <div className="mb-3">
+        <label className="form-label" htmlFor="address">Address</label>
         <input
+          id="address"
           type="text"
           className="form-control"
-          placeholder="Address"
           value={houseState.address}
           onChange={(e) =>
             setHouseState({ ...houseState, address: e.target.value })
           }
         />
       </div>
-      <div className="form-group mt-2">
-        <label htmlFor="country">Country</label>
+      <div className="mb-3">
+        <label className="form-label" htmlFor="country">Country</label>
         <input
+          id="country"
           type="text"
           className="form-control"
-          placeholder="Country"
           value={houseState.country}
           onChange={(e) =>
             setHouseState({ ...houseState, country: e.target.value })
           }
         />
       </div>
-      <div className="form-group mt-2">
-        <label htmlFor="description">Description</label>
+      <div className="mb-3">
+        <label className="form-label" htmlFor="description">Description</label>
         <textarea
+          id="description"
           className="form-control"
-          placeholder="Description"
+          rows={5}
           value={houseState.description}
           onChange={(e) =>
             setHouseState({ ...houseState, description: e.target.value })
           }
         />
       </div>
-      <div className="form-group mt-2">
-        <label htmlFor="price">Price</label>
+      <div className="mb-3">
+        <label className="form-label" htmlFor="price">Asking price</label>
         <input
+          id="price"
           type="number"
           className="form-control"
-          placeholder="Price"
           value={houseState.price}
           onChange={(e) =>
             setHouseState({ ...houseState, price: parseInt(e.target.value) })
           }
         />
       </div>
-           <div className="form-group mt-2">
-        <label htmlFor="image">Image</label>
+      <div className="mb-3">
+        <label className="form-label" htmlFor="image">Photo</label>
         <input
           id="image"
           type="file"
+          accept="image/*"
           className="form-control"
           onChange={onFileSelected}
         />
-      </div>
-      <div className="mt-2">
-        <img src={houseState.photo}></img>
+        {houseState.photo && (
+          <img className="form-preview" src={houseState.photo} alt="Selected house" />
+        )}
       </div>
       <button
-        className="btn btn-primary mt-2"
+        className="btn btn-primary"
         disabled={!houseState.address || !houseState.country}
         onClick={onSubmit}
       >
-        Submit
+        Save house
       </button>
     </form>
   );
