@@ -1,0 +1,20 @@
+# .NET build files
+**/bin/
+**/obj/
+.vs/
+*.user
+*.suo
+
+# React/Node build and dependency files
+**/node_modules/
+**/dist/
+**/build/
+
+# Local secrets and settings
+.env
+.env.*
+!.env.example
+**/appsettings.Development.json
+*.pfx
+*.pem
+*.key
