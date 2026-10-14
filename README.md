@@ -268,6 +268,3 @@ From `Api/`:
 - **Port 3000 already in use** — Vite uses `strictPort`, so it fails instead of picking another port. Free the port or change it (and the CORS origin).
 - **Frontend can't reach the API** — verify `baseApiUrl` in `ReactWeb/src/config.ts` matches the API URL.
 
-## License
-
-Add your license here.
