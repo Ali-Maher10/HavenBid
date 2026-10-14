@@ -1,4 +1,4 @@
-# Globo — Houses & Bids
+# HavenBid — Houses & Bids
 
 Globo is a full-stack house-listing application ("Providing houses all over the world"). Users can browse houses, view details, add / edit / delete listings, and place bids on a house.
 
